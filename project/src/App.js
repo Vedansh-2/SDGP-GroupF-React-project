@@ -7,8 +7,8 @@ function App() {
   return (
    <div>
     <TopNav>
-<Link to="/" style={{color:"white" }}><TopNav.NavLink>HomePage</TopNav.NavLink></Link>
-<Link to="/ViewAppointment" style={{color:"white" }}><TopNav.NavLink>View Admin view Appointment</TopNav.NavLink></Link>
+<Link to="/" style={{color:"white" }}><TopNav.NavLink>Home Page</TopNav.NavLink></Link>
+<Link to="/ViewAppointment" style={{color:"white" }}><TopNav.NavLink> View Appointment</TopNav.NavLink></Link>
     </TopNav>
 
 
