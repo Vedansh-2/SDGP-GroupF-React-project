@@ -12,9 +12,8 @@ let results: React.ReactElement[] = [];
 const Header = ({ links, labels }: Props) => {
   //This code is used to store the navigation items:
   if (results.length == 0)
-    //This makes sure it doesn't render twice in Strict Mode
+    //This if statement makes sure it doesn't render twice in Strict Mode
     links.forEach((link) => {
-      console.log(labels[links.indexOf(link)]);
       results.push(
         <li className="govuk-header__navigation-item">
           <HeaderLink
@@ -53,7 +52,7 @@ const Header = ({ links, labels }: Props) => {
               Menu
             </button>
             <ul id="navigation" className="govuk-header__navigation-list">
-              {results}
+              {results /* This creates all navigational buttons*/}
               {/* 
               To do for Osman:
 
