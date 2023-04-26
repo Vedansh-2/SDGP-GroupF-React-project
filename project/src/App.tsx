@@ -16,6 +16,8 @@ For example: if index 1 of links is to login, then index 1 of labels must displa
 
 */
 
+const choice = "Doctor";
+
 const headerLinks = ["/", "/login", "/reg", "/viewApp", "/createApp"]; //This array contains the paths to elements
 const headerLabels = [
   "Home",
