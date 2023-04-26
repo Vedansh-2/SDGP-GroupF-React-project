@@ -161,6 +161,7 @@ const CreateAppointment = () => {
             name="more-detail"
             aria-describedby="more-detail-hint"
             rows={10}
+            // Note to self, make character counter - osman
           ></textarea>
         </div>
       </div>

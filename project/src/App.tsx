@@ -7,6 +7,7 @@ import Footer from "./components/Footer";
 import Login from "./components/Login";
 import Registration from "./components/Registration";
 import CreateAppointment from "./components/CreateAppointment";
+import UserButton from "./components/UserButton";
 
 /*
 
