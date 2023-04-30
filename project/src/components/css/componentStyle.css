@@ -1,0 +1,15 @@
+/* This CSS file exists specifically for the styling of components*/
+
+.boldLabel {
+  font-weight: bold;
+}
+
+.extraSpacing {
+  padding-top: govuk-spacing(6);
+}
+
+.center {
+  margin-right: auto;
+  margin-left: auto;
+  height: 500px;
+}
