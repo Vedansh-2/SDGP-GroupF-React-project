@@ -1,10 +1,6 @@
 /*
 
-Authored by:
-Osman
-Diogo
-
-The doctor login component is used for patients logging into the system, it also sends valuable navigation data to the header.
+The Admin login component is used for admins logging into the system, it also sends valuable navigation data to the header.
 
 */
 
@@ -19,7 +15,7 @@ import jq from "jquery";
 //username(fName) - used for passing username back to App.tsx
 //passSuccess(true) - used for letting App.tsx know that the user has entered the correct information
 
-const docLogin = (props) => {
+const AdmLogin = (props) => {
   //Some basic states declared
 
   //States for logging in
@@ -49,11 +45,7 @@ const docLogin = (props) => {
       data: loginData,
       mode: "no-core",
       success: function (data) {
-        //
-        console.log("here");
-        console.log(data);
         var dataReturned = jq.parseJSON(data);
-        console.log(dataReturned);
         if (dataReturned[0] === "Success") {
           setErrorVisible(false);
 
@@ -155,4 +147,4 @@ const docLogin = (props) => {
   );
 };
 
-export default docLogin;
+export default AdmLogin;

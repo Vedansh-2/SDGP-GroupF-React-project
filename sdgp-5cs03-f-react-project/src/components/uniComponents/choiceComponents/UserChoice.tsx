@@ -4,6 +4,8 @@ The user choice component prompts the user to choose the
 interface they want to interact with, 
 whether it be the doctor, admin or patient type.
 
+They can choose to either login or register for each type.
+
 */
 
 import UserButton from "./UserButton";

@@ -1,5 +1,21 @@
+/*
+
+Authors:
+
+Osman
+Diogo
+Ali
+Sayhan
+Vedansh
+Khalid
+
+This is the main component of the whole project, it is where everything runs
+and therefore includes a lot of imports. Navigation is done here
+
+*/
+
 import "./components/css/styles.scss";
-import { Link, Route, Routes, useNavigate } from "react-router-dom"; //BrowserRouter isn't required because it exists in index.tsx
+import { Route, Routes, useNavigate } from "react-router-dom"; //BrowserRouter isn't required because it exists in index.tsx
 import Header from "./components/uniComponents/Header";
 import Footer from "./components/uniComponents/Footer";
 import PatLogin from "./components/patComponents/PatLogin";
@@ -13,39 +29,15 @@ import DocRegistration from "./components/docComponents/DocRegistration";
 import patNavData from "./components/patComponents/patNavData";
 import HomePage from "./components/uniComponents/Home";
 import ViewAppointment from "./components/uniComponents/ViewAppointment";
-import Registration from "./components/patComponents/Registration";
+import Registration from "./components/patComponents/PatRegistration";
 import CreateAppointment from "./components/patComponents/CreateAppointment";
 import ViewMedRecord from "./components/patComponents/ViewMedRecord";
 import DocLogin from "./components/docComponents/DocLogin";
 import AdmLogin from "./components/admComponents/AdmLogin";
 import AdmRegistration from "./components/admComponents/AdmRegistration";
 
-/*
-
-The way routing is setup is like so: depending on which user button is chosen (admin, doctor, patient), 
-the login component passes three arrays containing links, labels and routes to this component (main), 
-these arrays are then put through the create functions (createLinks, labels, etcetera…) and they push 
-those array elements into the headerLabels, headerLinks and headerRoutes arrays here, finally the 
-createFinalRoutes function is used to create the routes and the links and labels are put into the header 
-component’s props, and those are used to create the elements in the header that are used to navigate.
-
-Refer to the following files for navigation:
-
-Login.tsx
-Header.tsx
-HeaderLink.tsx
-App.tsx
-
-If you want to edit page navigation, refer to these files:
-patNavData.tsx
-docNavaData.tsx
-admNavData.tsx
-
-Comment made 29/04/2023 - Osman
-
-*/
-
 //These 3 constants, header links, labels and routes are all used for navigation.
+//They are passed to the header which then uses them as elements for navigation
 
 let headerLinks: string[] = [];
 let headerLabels: string[] = [];
@@ -54,7 +46,7 @@ let headerRoutes: React.ReactElement[] = [];
 let routeCreator: React.ReactElement[] = []; //This is array is used to store our route components, which are later put on the site
 
 function App() {
-  //Interface is defined for useState
+  //Interface is defined for the header useState
   interface headerState {
     linkState: string[];
     labelState: string[];
@@ -67,18 +59,20 @@ function App() {
   });
 
   //Used for setting visibility upon login
-  const [loginIsVisible, setLoginIsVisible] = useState<boolean>(true);
-  const [backIsVisible, setBackIsVisible] = useState<boolean>(false);
-  const [logoutIsVisible, setLogoutIsVisible] = useState<boolean>(false);
-  const [loginBackIsVisible, setLoginBackIsVisible] = useState<boolean>(false);
-  const [userVisible, setUserVisible] = useState<boolean>(false);
+  const [loginIsVisible, setLoginIsVisible] = useState<boolean>(true); //hides login page
+  const [backIsVisible, setBackIsVisible] = useState<boolean>(false); //hides back button
+  const [logoutIsVisible, setLogoutIsVisible] = useState<boolean>(false); //shows logout button
+  const [loginBackIsVisible, setLoginBackIsVisible] = useState<boolean>(false); //hides back button for user choice
+  const [userVisible, setUserVisible] = useState<boolean>(false); //shows the user's username at the top of the screen
 
   //This is intended to handle the user's choice (doctor, patient, admin)
-  const [userType, setUserType] = useState("");
-  const [username, setUsername] = useState("");
+  const [userType, setUserType] = useState(""); //userType is patient, doctor, etc
+  const [username, setUsername] = useState(""); //username is nhsNumber or first name
 
   //useNavigate is used to keep the user's URL on the correct page each time they use the buttons.
   const navigate = useNavigate();
+
+  //Reset is used to reset the header's elements upon logout
   const [reset, setReset] = useState(false);
 
   /* 
@@ -89,6 +83,11 @@ function App() {
   */
 
   const setHeaderElements = (type: string) => {
+    /*
+
+    Depending on type, a different header route array is selected
+
+    */
     if (type == "Patient") {
       setHeader({
         linkState: patNavData.headerLinks,
@@ -116,10 +115,23 @@ function App() {
     }
   };
 
+  /*
+
+  Called upon a successful login attempt
+
+  */
   const loginSuccess = (success: boolean) => {
-    if (success == true && userType == "Patient") {
-      setHeaderElements("Patient");
+    //Depending on selected type, choose different routes
+    if (success == true) {
+      if (success == true && userType == "Patient") {
+        setHeaderElements("Patient");
+      } else if (success == true && userType == "Doctor") {
+        setHeaderElements("Doctor");
+      } else if (success == true && userType == "Admin") {
+        setHeaderElements("Admin");
+      }
 
+      //Creating routes
       for (let i = 0; i < headerRoutes.length; i++) {
         routeCreator.push(
           <Route
@@ -132,46 +144,8 @@ function App() {
           />
         );
       }
-      setReset(true);
-      setBackIsVisible(true);
-      setLogoutIsVisible(true);
-      setLoginBackIsVisible(false);
-      setUserVisible(true);
-    } else if (success == true && userType == "Doctor") {
-      setHeaderElements("Doctor");
 
-      for (let i = 0; i < headerRoutes.length; i++) {
-        routeCreator.push(
-          <Route
-            path={header.linkState[i]}
-            element={
-              <BodyAnimation animation={mainAni}>
-                {headerRoutes[i]}
-              </BodyAnimation>
-            }
-          />
-        );
-      }
-      setReset(true);
-      setBackIsVisible(true);
-      setLogoutIsVisible(true);
-      setLoginBackIsVisible(false);
-      setUserVisible(true);
-    } else if (success == true && userType == "Admin") {
-      setHeaderElements("Admin");
-
-      for (let i = 0; i < headerRoutes.length; i++) {
-        routeCreator.push(
-          <Route
-            path={header.linkState[i]}
-            element={
-              <BodyAnimation animation={mainAni}>
-                {headerRoutes[i]}
-              </BodyAnimation>
-            }
-          />
-        );
-      }
+      //Visibility of elements once logged in
       setReset(true);
       setBackIsVisible(true);
       setLogoutIsVisible(true);
@@ -180,10 +154,12 @@ function App() {
     }
   };
 
-  const handleData = (data: any) => {
+  //Callback for storing user's name
+  const handleUsername = (data: any) => {
     setUsername(data);
   };
 
+  //Called when logging out:
   const logOut = () => {
     //Reset header arrays and states
     routeCreator = [];
@@ -200,6 +176,8 @@ function App() {
 
     //Sets the user back to the user choice
     setUserType("Back");
+
+    //Visibility after logging out is reset to default.
     setBackIsVisible(false);
     setLoginBackIsVisible(false);
     setLoginIsVisible(false);
@@ -208,8 +186,7 @@ function App() {
     setUserVisible(false);
   };
 
-  const handleNavigation = (input: string) => {
-    console.log(input);
+  const userChoiceSelected = (input: string) => {
     setUserType(input);
 
     //Navigate is used to automatically put user on the default page after logging in
@@ -222,6 +199,7 @@ function App() {
     setUserVisible(false);
   };
 
+  //This shouldn't be confused with logging out, it is simply a way to return to the user choice before logging in
   const goBackFromLogin = () => {
     setUserType("Back");
     setLoginBackIsVisible(false);
@@ -260,6 +238,10 @@ function App() {
           </>
         )}
 
+        {/* After clicking user choice, a different back button is used to 
+          go back to user choice, alternatively, we probably could've had it
+          so the onClick changes after getting to the home page, 
+          but oh well */}
         {loginBackIsVisible && (
           <>
             <a onClick={goBackFromLogin} className="govuk-back-link">
@@ -293,7 +275,7 @@ function App() {
                     <PatLogin
                       userType="Patient"
                       passSuccess={loginSuccess}
-                      username={handleData}
+                      username={handleUsername}
                     />
                   )}
                 </div>
@@ -305,7 +287,7 @@ function App() {
                     <DocLogin
                       userType="Doctor"
                       passSuccess={loginSuccess}
-                      username={handleData}
+                      username={handleUsername}
                     />
                   )}
                 </div>
@@ -318,7 +300,7 @@ function App() {
                       <AdmLogin
                         userType="Admin"
                         passSuccess={loginSuccess}
-                        username={handleData}
+                        username={handleUsername}
                       />
                     </>
                   )}
@@ -340,9 +322,9 @@ function App() {
             */
 
             case "Back":
-              return <UserChoice onButClick={handleNavigation} />;
+              return <UserChoice onButClick={userChoiceSelected} />;
             default:
-              return <UserChoice onButClick={handleNavigation} />;
+              return <UserChoice onButClick={userChoiceSelected} />;
           }
         })()}
       </div>

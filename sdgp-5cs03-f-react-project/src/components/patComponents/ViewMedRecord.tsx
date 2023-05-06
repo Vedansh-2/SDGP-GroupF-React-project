@@ -4,6 +4,8 @@ View medical record is used primarily for displaying a
 patient’s medical record to themselves, 
 therefore is a patient component.
 
+Work in progress
+
 */
 
 const ViewMedRecord = () => {

@@ -8,15 +8,19 @@ import "../css/componentStyle.css";
 import { useState, useEffect } from "react";
 import jq from "jquery";
 import BodyAnimation from "../uniComponents/BodyAnimation";
-import { errorTran, errorAni } from "../uniComponents/BodyAnimation";
+import { errorAni } from "../uniComponents/BodyAnimation";
 
+//Storing nhsNum from App.tsx when logged in
 interface Props {
   nhsNum: string;
 }
 
 const CreateAppointment = ({ nhsNum }: Props) => {
+  //useStates....
+  //Error checking:
   const [errors, setErrors] = useState<React.ReactElement[]>([]);
   const [errorVisible, setErrorVisible] = useState(false);
+  //Input fields:
   const [doctors, setDoctors] = useState([]);
   const [location, setLocation] = useState("Location 1");
   const [day, setDay] = useState(0);
@@ -27,17 +31,20 @@ const CreateAppointment = ({ nhsNum }: Props) => {
   const [detail, setDetail] = useState("");
   const [doctor, setDoctor] = useState("");
 
+  //Request that retrieves all doctors from the system
   const getDoctors = async () => {
     const response = await fetch("http://localhost/PHP/get-doctors.php");
     setDoctors(await response.json());
-    console.log(doctors);
   };
 
+  //Keeps the doctors field updated
   useEffect(() => {
     getDoctors();
   }, []);
 
+  //Sending the ajax request
   const createApp = () => {
+    //Binding data to the PHP variables
     let appData = {
       location: location,
       date: year + "-" + month + "-" + day,
@@ -52,27 +59,22 @@ const CreateAppointment = ({ nhsNum }: Props) => {
       detail: detail,
     };
 
+    //AJAX request
     jq.ajax({
       type: "POST",
       url: "http://localhost/php/createApp.php",
       data: appData,
       success: function (data) {
-        //
-        console.log("here");
         console.log(data);
         var dataReturned = jq.parseJSON(data);
-        console.log(dataReturned);
         if (dataReturned[0] === "Success") {
           let newErrors: React.ReactElement[] = [];
           newErrors.push(
             <h3 className="govuk-heading-m"> Appointment Booked </h3>
           );
           setErrors(newErrors);
-          setErrorVisible(false);
-          //setErrorVisible(false);
         } else {
           //If errors are found, else is triggered
-
           //Storing errors and then displaying them in an error box
           let newErrors: React.ReactElement[] = [];
           setErrors(newErrors);
@@ -256,6 +258,7 @@ const CreateAppointment = ({ nhsNum }: Props) => {
               className="govuk-select"
               id="selectDoc"
               name="selectDoc"
+              //Doctors are stored here
               onChange={(e) => setDoctor(e.target.value)}
             >
               <option value={0}></option>
@@ -288,9 +291,11 @@ const CreateAppointment = ({ nhsNum }: Props) => {
           </button>
         </div>
         <div className="govuk-grid-column-one-third">
-          <p className="govuk-body">
-            <BodyAnimation animation={errorAni}>{errors}</BodyAnimation>
-          </p>
+          {errorVisible && (
+            <p className="govuk-body">
+              <BodyAnimation animation={errorAni}>{errors}</BodyAnimation>
+            </p>
+          )}
         </div>
       </div>
     </main>

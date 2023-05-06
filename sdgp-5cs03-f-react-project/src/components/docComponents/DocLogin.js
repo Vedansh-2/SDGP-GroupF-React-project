@@ -1,10 +1,9 @@
 /*
 
 Authored by:
-Osman
-Diogo
 
-The doctor login component is used for patients logging into the system, it also sends valuable navigation data to the header.
+
+The doctor login component is used for doctors logging into the system, it also sends valuable navigation data to the header.
 
 */
 
@@ -13,13 +12,7 @@ import { loginAni, errorAni } from "../uniComponents/BodyAnimation";
 import { useState, useEffect } from "react";
 import jq from "jquery";
 
-//The above imports are components used to store navigation data.
-
-//Props used are:
-//username(fName) - used for passing username back to App.tsx
-//passSuccess(true) - used for letting App.tsx know that the user has entered the correct information
-
-const docLogin = (props) => {
+const DocLogin = (props) => {
   //Some basic states declared
 
   //States for logging in
@@ -49,11 +42,8 @@ const docLogin = (props) => {
       data: loginData,
       mode: "no-core",
       success: function (data) {
-        //
-        console.log("here");
-        console.log(data);
+        //Returned data after ajax needs to be parsed
         var dataReturned = jq.parseJSON(data);
-        console.log(dataReturned);
         if (dataReturned[0] === "Success") {
           setErrorVisible(false);
 
@@ -155,4 +145,4 @@ const docLogin = (props) => {
   );
 };
 
-export default docLogin;
+export default DocLogin;

@@ -1,7 +1,7 @@
 /*
 
 Authored by:
-Osman
+Ali
 Diogo
 
 The patient login component is used for patients logging into the system, it also sends valuable navigation data to the header.
@@ -10,14 +10,10 @@ The patient login component is used for patients logging into the system, it als
 
 import BodyAnimation from "../uniComponents/BodyAnimation";
 import { loginAni, errorAni } from "../uniComponents/BodyAnimation";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import jq from "jquery";
 
-//The above imports are components used to store navigation data.
-
-const Login = (props) => {
-  //Some basic states declared
-
+const PatLogin = (props) => {
   //States for logging in
   const [nhsState, setNHS] = useState(0);
   const [passwordState, setPassword] = useState("");
@@ -38,26 +34,29 @@ const Login = (props) => {
       password: passwordState,
     };
 
+    //JQuery to check user login
     jq.ajax({
       type: "POST",
       url: "http://localhost/php/pat-login.php",
       data: loginData,
       mode: "no-core",
       success: function (data) {
-        console.log(data);
-        console.log("huh");
         var json = jq.parseJSON(data);
-        console.log(json);
         if (json[0] === "Success") {
           setVisible(false);
+
+          //Returning username and success
           props.username(nhsState);
           props.passSuccess(true);
+
+          //Chanes submit button
           setLoginVisible(false);
           setButtonValue("Go to home page");
           if (buttonValue === "Go to home page") {
             setPageVisible(false);
           }
         } else {
+          //Error logging
           let newErrors = [];
           setErrors(newErrors);
           newErrors.push(<h3 className="govuk-heading-m"> Requirements: </h3>);
@@ -139,4 +138,4 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+export default PatLogin;

@@ -1,19 +1,16 @@
 /*
 
-Doctor registration is used for patients to register to the system, 
-because admins and doctors are hard coded into the
-system they do not use this component.
+Admin registration is used for admins to register to the system.
 
 */
 
 import { useState } from "react";
-import { register } from "../unorganizedComponents/FetchData";
 import BodyAnimation from "../uniComponents/BodyAnimation";
-import { errorTran, errorAni } from "../uniComponents/BodyAnimation";
+import { errorAni } from "../uniComponents/BodyAnimation";
 import jq from "jquery";
 
-const DocRegistration = () => {
-  //States for registering
+const AdmRegistration = () => {
+  //States for holding input data
   const [admNumState, setAdmNum] = useState(0);
   const [fNameState, setFName] = useState("");
   const [passwordState, setPassword] = useState("");
@@ -37,7 +34,6 @@ const DocRegistration = () => {
         let newErrors = [];
         setErrors(newErrors);
         var dataReturned = jq.parseJSON(data);
-        console.log(dataReturned);
         if (dataReturned[0] === "Success") {
           newErrors.push(
             <h3 className="govuk-heading-m"> Successful Registration </h3>
@@ -60,53 +56,6 @@ const DocRegistration = () => {
       },
     });
   }
-
-  /*
-
-  const submit = async () => {
-    const dataPromise = register(
-      nhsState,
-      fNameState,
-      sNameState,
-      passwordState,
-      genderState,
-      postState,
-      dayState,
-      monthState,
-      yearState
-    );
-    dataPromise.then((value) => {});
-    const result = await dataPromise;
-    console.log(result);
-
-    let newErrors: React.ReactElement[] = [];
-    setErrors(newErrors);
-
-    if (result[0] === "ERROR_DETECTED") {
-      newErrors.push(<h3 className="govuk-heading-m"> Requirements: </h3>);
-      for (let i = 1; i < result.length; i++) {
-        newErrors.push(<p className="govuk-body">{result[i]}</p>);
-      }
-      setErrors(newErrors);
-      setErrorsVisible(true);
-    } else if (result.includes("Register")) {
-      newErrors.push(
-        <h3 className="govuk-heading-m"> Successful Registration </h3>
-      );
-      setErrors(newErrors);
-      setErrorsVisible(true);
-    }
-  };
-*/
-
-  /*
-  const submitForm=(e: React.ChangeEvent<any>)=>{
-    e.preventDefault();
-      data = {
-        first_name: 
-      }
-  }
-*/
 
   return (
     <>
@@ -175,4 +124,4 @@ const DocRegistration = () => {
   );
 };
 
-export default DocRegistration;
+export default AdmRegistration;

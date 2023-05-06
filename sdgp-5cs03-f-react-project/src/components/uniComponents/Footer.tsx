@@ -1,7 +1,6 @@
 /*
 
 The footer component displays at the bottom of the page, it holds some placeholders for potential navigation. 
-Work in progress
 
 */
 
@@ -12,7 +11,7 @@ const Footer = () => {
         <div className="govuk-footer__meta">
           <div className="govuk-footer__meta-item govuk-footer__meta-item--grow">
             <h2 className="govuk-visually-hidden">Support links</h2>
-            <ul className="govuk-footer__inline-list">
+            {/* <ul className="govuk-footer__inline-list">
               <li className="govuk-footer__inline-list-item">
                 <a className="govuk-footer__link" href="#">
                   Item 1
@@ -28,7 +27,7 @@ const Footer = () => {
                   Item 3
                 </a>
               </li>
-            </ul>
+            </ul> Navigation can be added to footer*/}
             <svg
               aria-hidden="true"
               focusable="false"

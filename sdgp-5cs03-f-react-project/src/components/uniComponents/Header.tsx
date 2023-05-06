@@ -4,7 +4,6 @@ The header component displays at the top of the page, it is passed arrays that c
 
 */
 
-import { useState } from "react";
 import HeaderLink from "./HeaderLink";
 
 //The links and labels arrays are passed to the header to be used in the header links.
@@ -19,14 +18,6 @@ interface Props {
 let results: React.ReactElement[] = [];
 
 const Header = ({ links, labels, reset }: Props) => {
-  interface headerState {
-    linkState: string[];
-    labelState: string[];
-    routerState: React.ReactElement[];
-  }
-
-  const [passState, setPassState] = useState(false);
-
   if (reset == true) {
     results = [];
     if (results.length == 0) {

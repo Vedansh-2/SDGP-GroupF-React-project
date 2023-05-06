@@ -2,7 +2,7 @@
 
 import HomePage from "../uniComponents/Home";
 import ViewAppointment from "../uniComponents/ViewAppointment";
-import Registration from "./Registration";
+import Registration from "./PatRegistration";
 import CreateAppointment from "./CreateAppointment";
 import ViewMedRecord from "./ViewMedRecord";
 

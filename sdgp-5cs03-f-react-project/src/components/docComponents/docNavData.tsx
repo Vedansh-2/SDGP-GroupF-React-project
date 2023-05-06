@@ -2,7 +2,7 @@
 
 import HomePage from "../uniComponents/Home";
 import ViewAppointment from "../uniComponents/ViewAppointment";
-import Registration from "../patComponents/Registration";
+import Registration from "../patComponents/PatRegistration";
 
 const docNavData = {
   headerLinks: ["/", "/reg", "/viewApp"], //This array contains the paths to elements

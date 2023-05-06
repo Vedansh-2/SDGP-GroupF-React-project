@@ -1,6 +1,7 @@
 /*
 
-View appointments is used to both view and cancel appointments.
+The view appointments component is used for viewing appointments
+
 
 */
 

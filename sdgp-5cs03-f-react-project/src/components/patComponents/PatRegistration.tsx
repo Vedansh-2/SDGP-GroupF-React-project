@@ -7,11 +7,12 @@ system they do not use this component.
 */
 
 import { useState } from "react";
-import { register } from "../unorganizedComponents/FetchData";
+import { register } from "../uniComponents/FetchData";
 import BodyAnimation from "../uniComponents/BodyAnimation";
 import { errorTran, errorAni } from "../uniComponents/BodyAnimation";
 
-const Registration = () => {
+const PatRegistration = () => {
+  //These states are to be set by input elements
   const [nhsState, setNHS] = useState(0);
   const [fNameState, setFName] = useState("");
   const [sNameState, setSName] = useState("");
@@ -21,9 +22,12 @@ const Registration = () => {
   const [dayState, setDay] = useState(0);
   const [monthState, setMonth] = useState(0);
   const [yearState, setYear] = useState(0);
-  const [errors, setErrors] = useState<React.ReactElement[]>([]);
-  const [visible, setVisible] = useState(false);
 
+  //These states are used for error checking
+  const [errors, setErrors] = useState<React.ReactElement[]>([]);
+  const [errorVisible, setErrorVisible] = useState(false);
+
+  //Submission function
   const submit = async () => {
     const dob = yearState + "-" + monthState + "-" + dayState;
     const dataPromise = register(
@@ -40,7 +44,6 @@ const Registration = () => {
     );
     dataPromise.then((value) => {});
     const result = await dataPromise;
-    console.log(result);
 
     let newErrors: React.ReactElement[] = [];
     setErrors(newErrors);
@@ -51,13 +54,13 @@ const Registration = () => {
         newErrors.push(<p className="govuk-body">{result[i]}</p>);
       }
       setErrors(newErrors);
-      setVisible(true);
+      setErrorVisible(true);
     } else if (result.includes("Register")) {
       newErrors.push(
         <h3 className="govuk-heading-m"> Successful Registration </h3>
       );
       setErrors(newErrors);
-      setVisible(true);
+      setErrorVisible(true);
     }
   };
 
@@ -221,7 +224,7 @@ const Registration = () => {
                 Submit
               </button>
             </div>
-            {visible && (
+            {errorVisible && (
               <div className="govuk-grid-column-one-third">
                 <BodyAnimation animation={errorAni}>{errors}</BodyAnimation>
               </div>
@@ -233,4 +236,4 @@ const Registration = () => {
   );
 };
 
-export default Registration;
+export default PatRegistration;
