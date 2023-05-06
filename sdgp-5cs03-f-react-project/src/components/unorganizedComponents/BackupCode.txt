@@ -1,0 +1,38 @@
+From create appointment:
+
+/*
+  const getDoctors = () => {
+    jq.ajax({
+      type: "GET",
+      url: "http://localhost/php/get-doctors.php",
+      success: function (data) {
+        let newErrors: any = [];
+        setErrors(newErrors);
+        var dataReturned = jq.parseJSON(data);
+        console.log(dataReturned);
+        if (dataReturned[0] === "Success") {
+          dataReturned.shift();
+          console.log(dataReturned[1]);
+          var i = jq.parseJSON(dataReturned[1]);
+          console.log(i);
+          const array = [];
+        } else {
+          //If errors are found, else is triggered
+
+          //Storing errors and then displaying them in an error box
+          let newErrors: any = [];
+          setErrors(newErrors);
+          newErrors.push(<h3 className="govuk-heading-m"> Requirements: </h3>);
+          for (let i = 1; i < dataReturned.length; i++) {
+            newErrors.push(<p className="govuk-body">{dataReturned[i]}</p>);
+          }
+          setErrors(newErrors);
+          //setErrorsVisible(true);
+        }
+      },
+    });
+  };
+  */
+
+
+  
