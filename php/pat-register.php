@@ -59,7 +59,7 @@ if(strlen($postcode) != 7) {
     array_push($errors, 'Postcode must be 7 characters');
 }
 
-if(!checkdate($month, $day, $year) || $year > 2101) {
+if($day < 1 || $day > 31 || $month <1 || $month >12 || $year > 2101 || $year < 2003) {
     array_push($errors, 'Date of birth is invalid');
 }
 

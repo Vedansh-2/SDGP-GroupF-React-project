@@ -44,6 +44,7 @@ const PatRegistration = () => {
     );
     dataPromise.then((value) => {});
     const result = await dataPromise;
+    console.log(result);
 
     let newErrors: React.ReactElement[] = [];
     setErrors(newErrors);

@@ -40,8 +40,8 @@ if(empty($nhsNum)) {
     array_push($errors, 'Patient error: cannot find patient NHS number');
 }
 
-if(!checkdate($month, $day, $year) || $year > 2101) {
-    array_push($errors, 'Date of appointment is invalid');
+if($day < 1 || $day > 31 || $month <1 || $month >12 || $year > 2101 || $year < 2020) {
+    array_push($errors, 'Date of birth is invalid');
 }
 
 if($hour < 0 || $hour > 23 || $time < 0 || $time > 60) {
