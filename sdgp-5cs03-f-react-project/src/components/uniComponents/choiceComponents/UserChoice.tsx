@@ -61,6 +61,15 @@ const UserChoice = (props: Props) => {
         id="main-content"
         role="main"
       >
+        <div className="govuk-grid-row">
+          <div className="govuk-main-wrapper  govuk-grid-column-full"></div>
+        </div>
+        <div className="govuk-grid-row">
+          <div className="govuk-main-wrapper  govuk-grid-column-full"></div>
+        </div>
+        <div className="govuk-grid-row">
+          <div className="govuk-main-wrapper  govuk-grid-column-full"></div>
+        </div>
         <BodyAnimation animation={userAni} transition={userTran}>
           {/* User choices: */}
           <table className="center">
@@ -103,6 +112,15 @@ const UserChoice = (props: Props) => {
             </tbody>
           </table>
         </BodyAnimation>
+        <div className="govuk-grid-row">
+          <div className="govuk-main-wrapper  govuk-grid-column-full"></div>
+        </div>
+        <div className="govuk-grid-row">
+          <div className="govuk-main-wrapper  govuk-grid-column-full"></div>
+        </div>
+        <div className="govuk-grid-row">
+          <div className="govuk-main-wrapper  govuk-grid-column-full"></div>
+        </div>
       </main>
     </>
   );

@@ -92,7 +92,7 @@ const PatLogin = (props) => {
                     <>
                       <div className="govuk-form-group">
                         <label className="govuk-label" htmlFor="nameLog">
-                          NHSNumber
+                          NHS Number
                         </label>
                         <input
                           className="govuk-input govuk-input--width-10"

@@ -1,10 +1,20 @@
 <?php
+/*
 
+Authors:
+Osman
+
+Used by patients to create appointments with doctors
+
+*/
+
+//Header is open which is bad practice
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 
 $data = json_decode(file_get_contents("php://input"));
 
+//Input fields
 $nhsNum = $_POST['nhsNum'];
 $location = $_POST['location'];
 $date = $_POST['date'];
@@ -18,8 +28,10 @@ $hour = $_POST['hour'];
 $minute = $_POST['minute'];
 $textarea = $_POST['detail'];
 
+//Array to hold errors and input validation
 $errors = array();
 
+//Input validation
 if(empty($location)) {
     array_push($errors, 'Location is required');
 }
@@ -41,10 +53,10 @@ if(empty($nhsNum)) {
 }
 
 if($day < 1 || $day > 31 || $month <1 || $month >12 || $year > 2101 || $year < 2020) {
-    array_push($errors, 'Date of birth is invalid');
+    array_push($errors, 'Date of appointment is invalid');
 }
 
-if($hour < 0 || $hour > 23 || $time < 0 || $time > 60) {
+if($hour < 0 || $hour > 23 || $minute < 0 || $minute > 60) {
     array_push($errors, 'Time is invalid, please put it in 24 hour format');
 }
 
@@ -54,13 +66,17 @@ if(count($errors)){
     exit;
 }
 
+//Creates connection to the local GP database
+
 $pdo = require __DIR__ . "/database-con.php";
 
+//SQL query, inserts values into appointment table
 $sql = "INSERT INTO `appointment` (patNHSNumber, appLocation, docId, appDate, appTime, appDetail)
         VALUES (:patNHSNumber, :appLocation, :docId, :appDate, :appTime, :appDetail)";
 
 $stmt = $pdo->prepare($sql);
 
+//Binding values to placeholders
 $stmt->bindValue(":patNHSNumber", $nhsNum, PDO::PARAM_INT);
 $stmt->bindValue(":appLocation", $location, PDO::PARAM_STR);
 $stmt->bindValue(":docId", $docId, PDO::PARAM_INT);
@@ -68,6 +84,7 @@ $stmt->bindValue(":appDate", $date, PDO::PARAM_STR);
 $stmt->bindValue(":appTime", $time, PDO::PARAM_STR);
 $stmt->bindValue(":appDetail", $textarea, PDO::PARAM_STR);
 
+//Running
 try{
     $success = $stmt -> execute();
 
@@ -76,6 +93,7 @@ try{
         echo json_encode($errors);
         exit;
     } else {
+        //Error handling:
         echo json_encode("Error: " . $pdo->lastErrorMsg());
     }
 } catch (PDOException $e) {
@@ -87,8 +105,9 @@ try{
         
 
     } else {
-        array_push($errors, 'Please input the gender');
+        array_push($errors, 'ERROR_DETECTED');
         echo json_encode($errors, "Error: " . $e->getMessage());
+        exit;
     }
 
     if(count($errors)){

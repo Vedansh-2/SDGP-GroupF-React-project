@@ -1,15 +1,28 @@
 <?php
 
+/*
+
+Authors:
+Osman
+Vedansh
+
+Used to register to the system
+
+*/
+
+//Setting header
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 
 $data = json_decode(file_get_contents("php://input"));
 
+//Getting register inputs
 $admNum = $_POST['admNum'];
 $fName = $_POST['fName'];
 $password =  $_POST['password'];
 $errors = array();
 
+//Input validation
 if(empty($admNum)) {
     array_push($errors, 'Admin number is required');
 } else if (strlen($admNum) != 10) {
@@ -38,32 +51,42 @@ if(! preg_match("/[a-z]/i", $password)) {
 
 }
 
+//Final error check is used at the end so all input validation can be displayed at once
 if(count($errors)){
     array_unshift($errors, 'ERROR_DETECTED');
     echo json_encode($errors);
     exit;
 }
 
+//Password hashing (encryption)
 $password_hash = password_hash($password, PASSWORD_DEFAULT);
+
+//Getting the connection to the local GP database
 $pdo = require __DIR__ . "/database-con.php";
 
+//Inserting values into the database
 $sql = "INSERT INTO `admin.login` (admNum, admFName, admPasswordHash)
         VALUES (:admNum, :admFName, :admPasswordHash)";
 
+//Preparing query
 $stmt = $pdo->prepare($sql);
 
+//Binding values to the placeholders in the query, this protects against SQL injection
 $stmt->bindValue(":admNum", $admNum, PDO::PARAM_INT);
 $stmt->bindValue(":admFName", $fName, PDO::PARAM_STR);
 $stmt->bindValue(":admPasswordHash", $password_hash, PDO::PARAM_STR);
 
 try{
+    //Executing
     $success = $stmt -> execute();
 
+    //If success, pass success which is read by the react project
     if($success){
         array_push($errors, "Success");
         echo json_encode($errors);
         exit;
     } else {
+        //Error checking...
         echo json_encode("Error: " . $pdo->lastErrorMsg());
     }
 } catch (PDOException $e) {
@@ -73,9 +96,8 @@ try{
     echo json_encode($errors);
     exit;
         
-
     } else {
-        array_push($errors, 'Please input the gender');
+        array_unshift($errors, 'ERROR_DETECTED');
         echo json_encode($errors, "Error: " . $e->getMessage());
     }
 

@@ -1,23 +1,28 @@
 <?php
-
 /*
 
 Authors:
-Osman
-Khalid
+Diogo
+Sayhan
 
-Gets all doctors from the system
+
+Used by patients to create appointments with doctors
 
 */
 
-//Headers are left open, bad practice
+header("Access-Control-Allow-Methods: GET, PUT, POST, DELETE");
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 
 $data = json_decode(file_get_contents("php://input"));
 
-//Errors array to hold potential errors
+$nhsNum = $_POST['nhsNum'];
 $errors = array();
+
+if(empty($nhsNum)) {
+    echo json_encode($nhsNum);
+    array_push($errors, 'Unexpected NHS number error');
+}
 
 
 if(count($errors)){
@@ -26,38 +31,29 @@ if(count($errors)){
     exit;
 }
 
-//Establishing connection to the database
 $pdo = require __DIR__ . "/database-con.php";
 
-$sql = "SELECT * FROM `doctor.login`";
+$sql = "DELETE FROM `patient.login` WHERE `patNHSNumber` = :patNHSNumber; VALUES (:patNHSNumber)";
 
 $stmt = $pdo->prepare($sql);
 
-$data = array();
+$stmt->bindValue(":patNHSNumber", $nhsNum, PDO::PARAM_INT);
 
 
 
 try{
-    //
     $success = $stmt->execute();
 
-    if($success) {
+    // fetch results
+    $output = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        $output = $allRows = $stmt->fetchAll(PDO::FETCH_OBJ);
-
-        if(empty($output)){
-            echo json_encode("No doctors avaliable");
-        }
-        else { 
-                foreach($allRows as $row){
-                    array_push($data, $row);
-                }
-                echo json_encode($allRows);
-                exit;
-            }
-        } else {
-            echo json_encode("Error: " . $pdo->lastErrorMsg());
-        }
+    if($success){
+        array_push($errors, "Success");
+        echo json_encode($output);
+        exit;
+    } else {
+        echo json_encode("Error: " . $pdo->lastErrorMsg());
+    }
 } catch (PDOException $e) {
     if($e->getCode() == 23000){
             array_unshift($errors, 'ERROR_DETECTED');

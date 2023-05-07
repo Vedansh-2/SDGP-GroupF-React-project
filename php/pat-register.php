@@ -1,11 +1,23 @@
 <?php
 
+/*
+
+Authors:
+Osman
+Diogo
+Vedansh
+
+Used by patients to register into the system 
+
+*/
+
+//Header grant full access, which is bad practice
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 
 $data = json_decode(file_get_contents("php://input"));
 
-
+//Import fields from React project
 $fName = $data->fName;
 $sName = $data->sName;
 $password = $data->password;
@@ -18,10 +30,11 @@ $year = $data -> year;
 $dob = $data->dob;
 $errors = array();
 
+//Input validation
 if(empty($nhsNum)) {
     array_push($errors, 'NHS Number is required');
-} else if (strlen($nhsNum) != 10) {
-    array_push($errors, 'NHS Number must be 10 digits');
+} else if (strlen($nhsNum) != 11) {
+    array_push($errors, 'NHS Number must be 11 digits');
 }
 
 if(empty($fName)) {
@@ -69,14 +82,21 @@ if(count($errors)){
     exit;
 }
 
+//Password hashing 
 $password_hash = password_hash($password, PASSWORD_DEFAULT);
+
+//Establishing connection
 $pdo = require __DIR__ . "/database-con.php";
 
+//Inserting values, SQL query:
 $sql = "INSERT INTO `patient.login` (patFName, patSName, patPasswordHash, patGender, patNHSNumber, patPostcode, patDOB)
         VALUES (:patFName, :patSName, :patPasswordHash, :patGender, :patNHSNumber, :patPostcode, :patDOB)";
+//Placeholder values ^^^^^^, prevents SQL injection
 
+//Preparing query
 $stmt = $pdo->prepare($sql);
 
+//Binding values
 $stmt->bindValue(":patFName", $fName, PDO::PARAM_STR);
 $stmt->bindValue(":patSName", $sName, PDO::PARAM_STR);
 $stmt->bindValue(":patPasswordHash", $password_hash, PDO::PARAM_STR);
@@ -89,6 +109,7 @@ $stmt->bindValue(":patDOB", $dob, PDO::PARAM_STR);
 try{
     $success = $stmt -> execute();
 
+    //Register is read to confirm registry on React end
     if($success){
         echo json_encode("Register");
         exit;
@@ -96,6 +117,7 @@ try{
         echo json_encode("Error: " . $pdo->lastErrorMsg());
     }
 } catch (PDOException $e) {
+    //Constraint violation occurs if NHSn number matches existing number
     if($e->getCode() == 23000){
         array_push($errors, 'Constraint violation, NHS number matches existing entry');
 

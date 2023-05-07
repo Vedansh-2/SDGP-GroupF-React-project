@@ -28,13 +28,15 @@ import docNavData from "./components/docComponents/docNavData";
 import DocRegistration from "./components/docComponents/DocRegistration";
 import patNavData from "./components/patComponents/patNavData";
 import HomePage from "./components/uniComponents/Home";
-import ViewAppointment from "./components/uniComponents/ViewAppointment";
+import AdmViewAppointment from "./components/uniComponents/AdmViewAppointment";
 import Registration from "./components/patComponents/PatRegistration";
 import CreateAppointment from "./components/patComponents/CreateAppointment";
 import ViewMedRecord from "./components/patComponents/ViewMedRecord";
 import DocLogin from "./components/docComponents/DocLogin";
 import AdmLogin from "./components/admComponents/AdmLogin";
 import AdmRegistration from "./components/admComponents/AdmRegistration";
+import Deregister from "./components/patComponents/Deregister";
+import DocViewAppointment from "./components/docComponents/DocViewAppointment";
 
 //These 3 constants, header links, labels and routes are all used for navigation.
 //They are passed to the header which then uses them as elements for navigation
@@ -96,22 +98,21 @@ function App() {
       headerRoutes = [
         <HomePage />,
         <ViewMedRecord />,
-        <Registration />,
-        <ViewAppointment />,
         <CreateAppointment nhsNum={username} />,
+        <Deregister nhsNum={username} onButClick={logOut} />,
       ];
     } else if (type == "Doctor") {
       setHeader({
         linkState: docNavData.headerLinks,
         labelState: docNavData.headerLabels,
       });
-      headerRoutes = [<HomePage />, <ViewMedRecord />, <Registration />];
+      headerRoutes = [<HomePage />, <DocViewAppointment docNum={username} />];
     } else if (type == "Admin") {
       setHeader({
         linkState: admNavData.headerLinks,
         labelState: admNavData.headerLabels,
       });
-      headerRoutes = [<HomePage />, <ViewMedRecord />];
+      headerRoutes = [<HomePage />, <AdmViewAppointment />];
     }
   };
 

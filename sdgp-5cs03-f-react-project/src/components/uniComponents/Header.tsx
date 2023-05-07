@@ -31,7 +31,6 @@ const Header = ({ links, labels, reset }: Props) => {
             ></HeaderLink>
           </li>
         );
-        console.log(results);
       }
     }
   }

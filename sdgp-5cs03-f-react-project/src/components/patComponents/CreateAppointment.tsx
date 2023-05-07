@@ -34,7 +34,22 @@ const CreateAppointment = ({ nhsNum }: Props) => {
   //Request that retrieves all doctors from the system
   const getDoctors = async () => {
     const response = await fetch("http://localhost/PHP/get-doctors.php");
-    setDoctors(await response.json());
+    const result = await response.json();
+
+    //Check for no doctors
+    if (result === "No doctors avaliable") {
+      setErrors([
+        <h3 className="govuk-heading-m"> Fatal Error: </h3>,
+        <p className="govuk-body">
+          No doctors avaliable in system currently, submission will not work.
+        </p>,
+      ]);
+      setErrorVisible(true);
+
+      //If doctors exist, set the doctors list
+    } else {
+      setDoctors(result);
+    }
   };
 
   //Keeps the doctors field updated
@@ -62,10 +77,9 @@ const CreateAppointment = ({ nhsNum }: Props) => {
     //AJAX request
     jq.ajax({
       type: "POST",
-      url: "http://localhost/php/createApp.php",
+      url: "http://localhost/php/pat-create-app.php",
       data: appData,
       success: function (data) {
-        console.log(data);
         var dataReturned = jq.parseJSON(data);
         if (dataReturned[0] === "Success") {
           let newErrors: React.ReactElement[] = [];
@@ -119,15 +133,11 @@ const CreateAppointment = ({ nhsNum }: Props) => {
                   name="location"
                   onChange={(e) => setLocation(e.target.value)}
                 >
-                  <option
-                    value="loc
-                  1"
-                    selected
-                  >
+                  <option value="Location 1" selected>
                     Location 1
                   </option>
-                  <option value="loc2">Location 2</option>
-                  <option value="loc3">Location 3</option>
+                  <option value="Location 2">Location 2</option>
+                  <option value="Location 3">Location 3</option>
                 </select>
               </div>
               <div id="app-issued-hint" className="govuk-hint"></div>
