@@ -76,11 +76,16 @@ if($day < 1 || $day > 31 || $month <1 || $month >12 || $year > 2101 || $year < 1
     array_push($errors, 'Date of birth is invalid');
 }
 
+//Forcing date into correct format
+$date1=date_create($dob);
+$dob1=date_format($date1,"Y/m/d");
+
 if(count($errors)){
     array_unshift($errors, 'ERROR_DETECTED');
     echo json_encode($errors);
     exit;
 }
+
 
 //Password hashing 
 $password_hash = password_hash($password, PASSWORD_DEFAULT);
@@ -103,7 +108,7 @@ $stmt->bindValue(":patPasswordHash", $password_hash, PDO::PARAM_STR);
 $stmt->bindValue(":patGender", $gender, PDO::PARAM_STR);
 $stmt->bindValue(":patNHSNumber", $nhsNum, PDO::PARAM_STR);
 $stmt->bindValue(":patPostcode", $postcode, PDO::PARAM_STR);
-$stmt->bindValue(":patDOB", $dob, PDO::PARAM_STR);
+$stmt->bindValue(":patDOB", $dob1, PDO::PARAM_STR);
 
 
 try{

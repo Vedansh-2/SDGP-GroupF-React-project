@@ -1,5 +1,8 @@
 /*
 
+Authored by:
+Osman
+
 The body animation component is used for various animations on the page, however, I am considering removing it’s implementation entirely as it could possibly lose us marks?
 
 */

@@ -1,5 +1,8 @@
 /*
 
+Authored by:
+Sayhan
+
 The footer component displays at the bottom of the page, it holds some placeholders for potential navigation. 
 
 */

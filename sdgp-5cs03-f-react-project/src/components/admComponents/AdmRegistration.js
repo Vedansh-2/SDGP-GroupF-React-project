@@ -1,5 +1,9 @@
 /*
 
+Authored by:
+Vedansh
+Osman
+
 Admin registration is used for admins to register to the system.
 
 */
@@ -63,7 +67,7 @@ const AdmRegistration = () => {
         <main className="govuk-main-wrapper">
           <div className="govuk-grid-row">
             <div className="govuk-grid-column-two-thirds">
-              <h1 className="govuk-heading-xl">Registration</h1>
+              <h1 className="govuk-heading-xl">Admin Registration</h1>
             </div>
           </div>
           <div className="govuk-grid-row">

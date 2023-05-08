@@ -1,8 +1,9 @@
 /*
 
 Authored by:
-Ali
 Diogo
+Ali
+Osman
 
 The patient login component is used for patients logging into the system, it also sends valuable navigation data to the header.
 
@@ -110,7 +111,7 @@ const PatLogin = (props) => {
                           className="govuk-input govuk-input--width-10"
                           id="passwordLog"
                           name="passwordLog"
-                          type="text"
+                          type="password"
                           onChange={(e) => setPassword(e.target.value)}
                         />
                       </div>

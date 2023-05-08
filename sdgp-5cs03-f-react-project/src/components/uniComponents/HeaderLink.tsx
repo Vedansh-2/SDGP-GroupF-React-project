@@ -1,5 +1,9 @@
 /*
 
+Authored by:
+Osman
+Diogo
+
 The header link component is used to create links for the header component.
 
 */

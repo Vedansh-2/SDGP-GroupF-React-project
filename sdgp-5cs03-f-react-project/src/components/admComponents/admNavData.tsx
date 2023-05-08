@@ -1,3 +1,11 @@
+/*
+
+Authored by:
+Osman
+Sayhan
+
+*/
+
 //Each nav data component is used for storing navigation data for each user role.
 
 const admNavData = {

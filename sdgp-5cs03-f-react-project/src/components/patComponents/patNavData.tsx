@@ -1,3 +1,11 @@
+/*
+
+Authored by:
+Osman
+Sayhan
+
+*/
+
 //Each nav data component is used for storing navigation data for each user role.
 
 interface PatNavData {
@@ -6,11 +14,12 @@ interface PatNavData {
 }
 
 const patNavData: PatNavData = {
-  headerLinks: ["/", "/viewMed", "/createApp", "/dereg"], //This array contains the paths to elements
+  headerLinks: ["/", "/viewMed", "/createApp", "patViewApp", "/dereg"], //This array contains the paths to elements
   headerLabels: [
     "Home",
     "View Medical Record",
     "Create Appointment",
+    "View your appointments",
     "Deregister",
   ],
 };

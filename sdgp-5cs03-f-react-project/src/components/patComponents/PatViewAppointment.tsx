@@ -1,35 +1,37 @@
-import { useState, useEffect } from "react";
-import jq from "jquery";
-
 /*
 
 Authored by:
 Osman
-Sayhan
-Diogo
+Khalid
+Vedansh
 
-This component is used by doctors to view their appointments, keep in mind it only shows the currently logged in doctor’s appointments, not all.
+This component is used by patients to view their appointments, keep in mind it only shows the currently logged in patient’s appointments, not all.
 
 */
 
+import { useState, useEffect } from "react";
+import jq from "jquery";
+
 interface Props {
-  docNum: string;
+  nhsNum: string;
 }
 
-const DocViewAppointment = ({ docNum }: Props) => {
+const PatViewAppointment = ({ nhsNum }: Props) => {
+  //Getting apointments
   const [appointments, setAppointments] = useState([]);
+  const [appointmentsVisible, setAppointmentsVisible] = useState(false);
+
   //Error checking:
   const [errors, setErrors] = useState<React.ReactElement[]>([]);
   const [errorVisible, setErrorVisible] = useState(false);
-  const [appointmentsVisible, setAppointmentsVisible] = useState(false);
 
   const getAppointments = () => {
     let loginData = {
-      docNum: docNum,
+      nhsNum: nhsNum,
     };
     jq.ajax({
       type: "POST",
-      url: "http://localhost/php/doc-view-apps.php",
+      url: "http://localhost/php/pat-view-apps.php",
       data: loginData,
       success: function (data) {
         var json = jq.parseJSON(data);
@@ -55,6 +57,36 @@ const DocViewAppointment = ({ docNum }: Props) => {
     getAppointments();
   }, []);
 
+  const deleteAppointment = (appId: number) => {
+    let appData = {
+      appId: appId,
+    };
+
+    jq.ajax({
+      type: "POST",
+      url: "http://localhost/php/adm-delete-app.php",
+      data: appData,
+      success: function (data) {
+        var dataReturned = jq.parseJSON(data);
+        console.log(dataReturned);
+        if (dataReturned[0] === "Success") {
+        } else {
+          //If errors are found, else is triggered
+          //Storing errors and then displaying them in an error box
+          let newErrors: React.ReactElement[] = [];
+          setErrors(newErrors);
+          newErrors.push(<h3 className="govuk-heading-m"> Requirements: </h3>);
+          for (let i = 1; i < dataReturned.length; i++) {
+            newErrors.push(<p className="govuk-body">{dataReturned[i]}</p>);
+          }
+          setErrors(newErrors);
+          setErrorVisible(true);
+        }
+        getAppointments();
+      },
+    });
+  };
+
   return (
     <main
       className="govuk-main-wrapper app-main-class"
@@ -73,7 +105,7 @@ const DocViewAppointment = ({ docNum }: Props) => {
               scope="col"
               className="govuk-table__header app-custom-className"
             >
-              Patient (NHS Number)
+              Appointment with Dr.
             </th>
             <th
               scope="col"
@@ -99,6 +131,12 @@ const DocViewAppointment = ({ docNum }: Props) => {
             >
               Details Button
             </th>
+            <th
+              scope="col"
+              className="govuk-table__header app-custom-className"
+            >
+              Cancel?
+            </th>
           </tr>
         </thead>
         <tbody className="govuk-table__body">
@@ -107,7 +145,7 @@ const DocViewAppointment = ({ docNum }: Props) => {
               return (
                 <tr className="govuk-table__row">
                   <th scope="row" className="govuk-table__header">
-                    {res.patFName} ({res.patNHSNumber})
+                    {res.docFName} ({res.docNum})
                   </th>
                   <td className="govuk-table__cell">{res.appDate}</td>
                   <td className="govuk-table__cell">{res.appTime}</td>
@@ -120,6 +158,15 @@ const DocViewAppointment = ({ docNum }: Props) => {
                       Details
                     </button>
                   </td>
+                  <td className="govuk-table__cell">
+                    <button
+                      className="govuk-button govuk-button--warning"
+                      data-module="govuk-button"
+                      onClick={() => deleteAppointment(res.appId)}
+                    >
+                      Cancel App
+                    </button>
+                  </td>
                 </tr>
               );
             })}
@@ -129,4 +176,4 @@ const DocViewAppointment = ({ docNum }: Props) => {
   );
 };
 
-export default DocViewAppointment;
+export default PatViewAppointment;

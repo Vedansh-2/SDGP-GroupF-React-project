@@ -1,5 +1,9 @@
 /*
 
+Authored by:
+Osman
+Diogo
+
 The header component displays at the top of the page, it is passed arrays that contain links and labels to be used to put navigation components directly in the header.
 
 */

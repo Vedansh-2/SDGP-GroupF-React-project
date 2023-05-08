@@ -1,5 +1,10 @@
 /*
 
+Authored by:
+Osman
+Khalid
+Sayhan
+
 The creating appointment component is used by the patient to create their appointments.
 
 */
@@ -26,7 +31,7 @@ const CreateAppointment = ({ nhsNum }: Props) => {
   const [day, setDay] = useState(0);
   const [month, setMonth] = useState(0);
   const [year, setYear] = useState(0);
-  const [hour, setHour] = useState(0);
+  const [time, setTime] = useState("");
   const [minute, setMinute] = useState(0);
   const [detail, setDetail] = useState("");
   const [doctor, setDoctor] = useState("");
@@ -63,9 +68,9 @@ const CreateAppointment = ({ nhsNum }: Props) => {
     let appData = {
       location: location,
       date: year + "-" + month + "-" + day,
-      time: hour + ":" + minute,
+      time: time,
       minute: minute,
-      hour: hour,
+      //hour: hour,
       day: day,
       year: year,
       month: month,
@@ -80,7 +85,9 @@ const CreateAppointment = ({ nhsNum }: Props) => {
       url: "http://localhost/php/pat-create-app.php",
       data: appData,
       success: function (data) {
+        console.log(data);
         var dataReturned = jq.parseJSON(data);
+        console.log(data);
         if (dataReturned[0] === "Success") {
           let newErrors: React.ReactElement[] = [];
           newErrors.push(
@@ -203,33 +210,16 @@ const CreateAppointment = ({ nhsNum }: Props) => {
                   <div className="govuk-form-group">
                     <label
                       className="govuk-label govuk-date-input__label "
-                      htmlFor="app-issued-hour"
+                      htmlFor="app-issued-time"
                     >
-                      Hour
+                      Time
                     </label>
                     <input
-                      className="govuk-input govuk-date-input__input govuk-input--width-2"
-                      id="app-issued-hour"
-                      name="app-issued-hour"
-                      type="number"
-                      onChange={(e) => setHour(parseInt(e.target.value))}
-                    />
-                  </div>
-                </div>
-                <div className="govuk-date-input__item">
-                  <div className="govuk-form-group">
-                    <label
-                      className="govuk-label govuk-date-input__label"
-                      htmlFor="app-issued-minute"
-                    >
-                      Minute
-                    </label>
-                    <input
-                      className="govuk-input govuk-date-input__input govuk-input--width-2"
-                      id="app-issued-minute"
-                      name="app-issued-minute"
-                      type="number"
-                      onChange={(e) => setMinute(parseInt(e.target.value))}
+                      className="govuk-input govuk-date-input__input govuk-input--width-5"
+                      id="app-issued-time"
+                      name="app-issued-time"
+                      type="time"
+                      onChange={(e) => setTime(e.target.value)}
                     />
                   </div>
                 </div>

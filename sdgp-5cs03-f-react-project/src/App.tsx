@@ -10,7 +10,10 @@ Vedansh
 Khalid
 
 This is the main component of the whole project, it is where everything runs
-and therefore includes a lot of imports. Navigation is done here
+and therefore includes a lot of imports. Navigation is done here, 
+user choice on what type of user they are (patient, doctor, admin), 
+storing login data (username, NHS number), visibility of components, 
+logging out, and much more. Be very careful when tweaking around with this.
 
 */
 
@@ -28,7 +31,7 @@ import docNavData from "./components/docComponents/docNavData";
 import DocRegistration from "./components/docComponents/DocRegistration";
 import patNavData from "./components/patComponents/patNavData";
 import HomePage from "./components/uniComponents/Home";
-import AdmViewAppointment from "./components/uniComponents/AdmViewAppointment";
+import AdmViewAppointment from "./components/admComponents/AdmViewAppointment";
 import Registration from "./components/patComponents/PatRegistration";
 import CreateAppointment from "./components/patComponents/CreateAppointment";
 import ViewMedRecord from "./components/patComponents/ViewMedRecord";
@@ -37,6 +40,8 @@ import AdmLogin from "./components/admComponents/AdmLogin";
 import AdmRegistration from "./components/admComponents/AdmRegistration";
 import Deregister from "./components/patComponents/Deregister";
 import DocViewAppointment from "./components/docComponents/DocViewAppointment";
+import PatRegistrationExist from "./components/patComponents/PatRegistrationExist";
+import PatViewAppointment from "./components/patComponents/PatViewAppointment";
 
 //These 3 constants, header links, labels and routes are all used for navigation.
 //They are passed to the header which then uses them as elements for navigation
@@ -97,8 +102,9 @@ function App() {
       });
       headerRoutes = [
         <HomePage />,
-        <ViewMedRecord />,
+        <ViewMedRecord nhsNum={username} />,
         <CreateAppointment nhsNum={username} />,
+        <PatViewAppointment nhsNum={username} />,
         <Deregister nhsNum={username} onButClick={logOut} />,
       ];
     } else if (type == "Doctor") {
@@ -313,6 +319,8 @@ function App() {
               return <div>{loginIsVisible && <DocRegistration />}</div>;
             case "Admin Register":
               return <div>{loginIsVisible && <AdmRegistration />}</div>;
+            case "Patient Register Existing":
+              return <div>{loginIsVisible && <PatRegistrationExist />}</div>;
             /*
 
             The default case is a button, the onButClick prop is used to determine the type of user, 

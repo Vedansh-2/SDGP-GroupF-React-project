@@ -1,12 +1,16 @@
-import { useState, useEffect } from "react";
-import jq from "jquery";
-
 /*
 
-The view appointments component is used for viewing appointments
+Authors:
+Osman
+
+This component allows admins to view all appointments in the system
 
 */
 
+import { useState, useEffect } from "react";
+import jq from "jquery";
+
+//View appointment
 const AdmViewAppointment = () => {
   const [appointments, setAppointments] = useState([]);
   //Error checking:
@@ -35,10 +39,12 @@ const AdmViewAppointment = () => {
     }
   };
 
+  //useEffect to grab appointments immediately
   useEffect(() => {
     getAppointments();
   }, []);
 
+  //For delete appointment button
   const deleteAppointment = (appId: number) => {
     let appData = {
       appId: appId,

@@ -1,5 +1,9 @@
 /*
 
+Authored by:
+Sayhan
+Khalid
+
 The user choice component prompts the user to choose the 
 interface they want to interact with, 
 whether it be the doctor, admin or patient type.
@@ -50,6 +54,12 @@ const UserChoice = (props: Props) => {
       event.currentTarget.getAttribute("data-type") === "Admin Register"
     ) {
       const data = "Admin Register";
+      props.onButClick(data);
+    } else if (
+      event.currentTarget.getAttribute("data-type") ===
+      "Patient Register Existing"
+    ) {
+      const data = "Patient Register Existing";
       props.onButClick(data);
     }
   };
@@ -106,6 +116,16 @@ const UserChoice = (props: Props) => {
                 <th>
                   <div data-type="Admin Register" onClick={handleClick}>
                     <UserButton type="Admin Register" />
+                  </div>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  <div
+                    data-type="Patient Register Existing"
+                    onClick={handleClick}
+                  >
+                    <UserButton type="Patient Register Existing" />
                   </div>
                 </th>
               </tr>

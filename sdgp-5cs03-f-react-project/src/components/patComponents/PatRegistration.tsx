@@ -1,8 +1,12 @@
 /*
 
-Registration is used for patients to register to the system, 
-because admins and doctors are hard coded into the
-system they do not use this component.
+Authored by:
+Osman
+Vedansh
+
+Patient registration is used for patients to register to the system by providing all information, 
+PatRegistrationExist is used for registering patients specifically in the vaccines.db, 
+because admins and doctors are hard coded into the system they do not use this component.
 
 */
 
@@ -44,7 +48,6 @@ const PatRegistration = () => {
     );
     dataPromise.then((value) => {});
     const result = await dataPromise;
-    console.log(result);
 
     let newErrors: React.ReactElement[] = [];
     setErrors(newErrors);
@@ -65,22 +68,13 @@ const PatRegistration = () => {
     }
   };
 
-  /*
-  const submitForm=(e: React.ChangeEvent<any>)=>{
-    e.preventDefault();
-      data = {
-        first_name: 
-      }
-  }
-*/
-
   return (
     <>
       <div className="govuk-width-container">
         <main className="govuk-main-wrapper">
           <div className="govuk-grid-row">
             <div className="govuk-grid-column-two-thirds">
-              <h1 className="govuk-heading-xl">Registration</h1>
+              <h1 className="govuk-heading-xl">Patient Registration</h1>
             </div>
           </div>
           <div className="govuk-grid-row">

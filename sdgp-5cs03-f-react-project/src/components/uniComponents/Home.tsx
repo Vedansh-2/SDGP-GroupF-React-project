@@ -1,6 +1,11 @@
 /*
 
+Authored by:
+Osman
+
+
 The home component exists as the starting point for users after logging in.
+
 
 */
 

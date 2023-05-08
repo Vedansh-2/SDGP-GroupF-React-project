@@ -5,8 +5,7 @@
 Authors:
 Osman
 Diogo
-Sayhan
-
+Ali
 
 Used by patients to log into the system
 

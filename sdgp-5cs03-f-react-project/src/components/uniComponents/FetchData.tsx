@@ -1,7 +1,11 @@
 /*
 
-Fetch data is a utility component is intended 
-to contain various methods for AJAX requests directly to the server. The main one in here is the one used for patient registration.
+Authored by:
+Osman
+Ali
+
+Fetch data is a utility component is intended to contain various methods for AJAX requests 
+directly to the server. The main one in here is the one used for patient registration.
 
 */
 

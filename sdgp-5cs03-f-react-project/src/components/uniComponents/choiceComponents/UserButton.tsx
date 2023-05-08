@@ -1,5 +1,10 @@
 /*
 
+Authored by:
+Sayhan
+Vedansh
+
+
 The user button component is used in combination with the 
 user choice component to prompt the user 
 to state their permission.
@@ -30,7 +35,10 @@ const UserButton = ({ type }: Props) => {
     color = "#00a1b0";
   } else if (type === "Patient Register") {
     color = "#a6a6a6";
+  } else if (type === "Patient Register Existing") {
+    color = "#a6a6a6";
   }
+
   return (
     <>
       <Button buttonColour={color} start>

@@ -1,5 +1,10 @@
 /*
 
+Authored by:
+Khalid
+Osman
+
+
 The Admin login component is used for admins logging into the system, it also sends valuable navigation data to the header.
 
 */
@@ -119,7 +124,7 @@ const AdmLogin = (props) => {
                           className="govuk-input govuk-input--width-10"
                           id="passwordLog"
                           name="passwordLog"
-                          type="text"
+                          type="password"
                           onChange={(e) => setPassword(e.target.value)}
                         />
                       </div>

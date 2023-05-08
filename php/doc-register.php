@@ -4,6 +4,7 @@
 
 Authors:
 Osman
+Khalid
 
 Used by doctors to register to the system.
 
