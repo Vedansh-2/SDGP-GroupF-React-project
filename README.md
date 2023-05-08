@@ -10,7 +10,7 @@ Please read carefully. the node_modules folder is removed, therefore before runn
 
 # Project information
 
-This project is being created and managed by GROUP F of the software development group project module, the following people are working on this project:
+This project is being created and managed by 5CS03_GROUP_F of the software development group project module, the following people are working on this project:
 
 - Osman Mahmood
 - Vedansh
