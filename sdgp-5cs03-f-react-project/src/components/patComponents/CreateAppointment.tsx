@@ -85,9 +85,7 @@ const CreateAppointment = ({ nhsNum }: Props) => {
       url: "http://localhost/php/pat-create-app.php",
       data: appData,
       success: function (data) {
-        console.log(data);
         var dataReturned = jq.parseJSON(data);
-        console.log(data);
         if (dataReturned[0] === "Success") {
           let newErrors: React.ReactElement[] = [];
           newErrors.push(

@@ -56,7 +56,6 @@ const AdmViewAppointment = () => {
       data: appData,
       success: function (data) {
         var dataReturned = jq.parseJSON(data);
-        console.log(dataReturned);
         if (dataReturned[0] === "Success") {
         } else {
           //If errors are found, else is triggered

@@ -28,8 +28,6 @@ const Deregister = (props: Props) => {
       nhsNum: props.nhsNum,
     };
 
-    console.log(appointmentCheck);
-
     if (appointmentCheck != "No appointments avaliable") {
       setAppError(true);
     } else {
@@ -38,7 +36,6 @@ const Deregister = (props: Props) => {
         url: "http://localhost/php/pat-deregister.php",
         data: deregData,
         success: function (data) {
-          console.log(data);
           props.onButClick();
         },
       });
