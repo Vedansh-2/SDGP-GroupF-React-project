@@ -92,6 +92,7 @@ const CreateAppointment = ({ nhsNum }: Props) => {
             <h3 className="govuk-heading-m"> Appointment Booked </h3>
           );
           setErrors(newErrors);
+          setErrorVisible(true);
         } else {
           //If errors are found, else is triggered
           //Storing errors and then displaying them in an error box
