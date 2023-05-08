@@ -3,6 +3,8 @@
 /*
 
 Authors:
+Osman
+Diogo
 
 Gets a specific patient from the system
 

@@ -99,7 +99,7 @@ const AdmViewAppointment = () => {
               scope="col"
               className="govuk-table__header app-custom-className"
             >
-              Doctor (ID)
+              Doctor (Number)
             </th>
             <th
               scope="col"
@@ -142,7 +142,7 @@ const AdmViewAppointment = () => {
                     {res.patFName} ({res.patNHSNumber})
                   </th>
                   <th scope="row" className="govuk-table__header">
-                    {res.docFName} ({res.docId})
+                    {res.docFName} ({res.docNum})
                   </th>
                   <td className="govuk-table__cell">{res.appDate}</td>
                   <td className="govuk-table__cell">{res.appTime}</td>

@@ -18,7 +18,7 @@ $pdo = require __DIR__ . "/database-con.php";
 
 //Putting our SQL in a variable
 $sql = "
-SELECT a.appId, p.patNHSNumber, d.docId, p.patFName, d.docFName, a.appTime, a.appDate, a.patNHSNumber, a.appLocation
+SELECT a.appId, p.patNHSNumber, d.docId, d.docNum, p.patFName, d.docFName, a.appTime, a.appDate, a.patNHSNumber, a.appLocation
 FROM `patient.login` p
 JOIN appointment a
 ON p.patNHSNumber = a.patNHSNumber

@@ -74,12 +74,6 @@ const UserChoice = (props: Props) => {
         <div className="govuk-grid-row">
           <div className="govuk-main-wrapper  govuk-grid-column-full"></div>
         </div>
-        <div className="govuk-grid-row">
-          <div className="govuk-main-wrapper  govuk-grid-column-full"></div>
-        </div>
-        <div className="govuk-grid-row">
-          <div className="govuk-main-wrapper  govuk-grid-column-full"></div>
-        </div>
         <BodyAnimation animation={userAni} transition={userTran}>
           {/* User choices: */}
           <table className="center">
@@ -90,54 +84,32 @@ const UserChoice = (props: Props) => {
                   <div data-type="Patient" onClick={handleClick}>
                     <UserButton type="Patient Login" />
                   </div>
-                </th>
-                <th>
-                  <div data-type="Doctor" onClick={handleClick}>
-                    <UserButton type="Doctor Login" />
-                  </div>
-                </th>
-                <th>
-                  <div data-type="Admin" onClick={handleClick}>
-                    <UserButton type="Admin Login" />
-                  </div>
-                </th>
-              </tr>
-              <tr>
-                <th>
                   <div data-type="Patient Register" onClick={handleClick}>
                     <UserButton type="Patient Register" />
                   </div>
-                </th>
-                <th>
-                  <div data-type="Doctor Register" onClick={handleClick}>
-                    <UserButton type="Doctor Register" />
-                  </div>
-                </th>
-                <th>
-                  <div data-type="Admin Register" onClick={handleClick}>
-                    <UserButton type="Admin Register" />
-                  </div>
-                </th>
-              </tr>
-              <tr>
-                <th>
                   <div
                     data-type="Patient Register Existing"
                     onClick={handleClick}
                   >
                     <UserButton type="Patient Register Existing" />
                   </div>
+                  <div data-type="Doctor" onClick={handleClick}>
+                    <UserButton type="Doctor Login" />
+                  </div>
+                  <div data-type="Doctor Register" onClick={handleClick}>
+                    <UserButton type="Doctor Register" />
+                  </div>
+                  <div data-type="Admin" onClick={handleClick}>
+                    <UserButton type="Admin Login" />
+                  </div>
+                  <div data-type="Admin Register" onClick={handleClick}>
+                    <UserButton type="Admin Register" />
+                  </div>
                 </th>
               </tr>
             </tbody>
           </table>
         </BodyAnimation>
-        <div className="govuk-grid-row">
-          <div className="govuk-main-wrapper  govuk-grid-column-full"></div>
-        </div>
-        <div className="govuk-grid-row">
-          <div className="govuk-main-wrapper  govuk-grid-column-full"></div>
-        </div>
         <div className="govuk-grid-row">
           <div className="govuk-main-wrapper  govuk-grid-column-full"></div>
         </div>
